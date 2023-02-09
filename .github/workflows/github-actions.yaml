@@ -1,0 +1,38 @@
+name: Run Automation
+#on: [push, pull_request]
+on:
+   workflow_dispatch:
+    inputs:
+      platform:
+        description: 'select where to run'
+        required: true
+        default: 'github'
+        type: choice
+        options:
+        - github
+      artifacts:
+        description: 'Artifact reporting'
+        required: false
+        type: boolean
+    push:
+      branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+        - name: Checkout
+          uses: actions/checkout@v2
+        - uses: actions/setup-node@v1
+          with:
+            node-version: 18
+        - name: Install
+          run: npm install
+        - name: Run Automation
+          run: npm run cy:headless
+          continue-on-error: false
+        - uses: actions/upload-artifact@v3
+          with:
+            name: mochawesome-report
+            path: ./mochawesome-report

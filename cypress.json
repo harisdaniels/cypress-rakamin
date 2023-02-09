@@ -1,0 +1,7 @@
+{
+  "baseUrl": "https://web-staging.rakamin.com",
+  "chromeWebSecurity": false,
+  "testFiles": "**/*.feature",
+  "viewportWidth": 1200,
+  "viewportHeight": 660
+}
